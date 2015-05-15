@@ -1,0 +1,31 @@
+{
+  "name": "unico",
+  "version": "1.0.0",
+  "description": "Unicorn API - No matter what you send or request, you get back unicorns",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JasonTowner/unico.git"
+  },
+  "keywords": [
+    "Unicorns",
+    "Unico"
+  ],
+  "author": "Jason Towner <jsntowner@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JasonTowner/unico/issues"
+  },
+  "homepage": "https://github.com/JasonTowner/unico",
+  "dependencies": {
+    "boom": "^2.7.1",
+    "good": "^6.1.2",
+    "good-console": "^5.0.0",
+    "hapi": "^8.4.0",
+    "hapi-swagger": "^0.7.3",
+    "joi": "^6.4.1"
+  }
+}
