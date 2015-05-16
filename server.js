@@ -5,8 +5,6 @@ var Hapi = require('hapi');
 // Init stuffs
 require('./init');
 
-var routes = require('./libs/routes');
-
 // Get config values
 var host = process.env.HOST || '0.0.0.0';
 var port = process.env.PORT || 1337;
@@ -19,7 +17,7 @@ server.connection({
 });
 
 // Add the routes
-server.route(routes);
+server.route(require('./libs/routes'));
 
 var goodOptions = {
     opsInterval: 1000,
@@ -41,7 +39,8 @@ var plugins = [
     {
         register: require('hapi-swagger'),
         options: {
-            apiVersion: '1.0.0'
+            apiVersion: '1.0.0',
+            protocol: 'https'
         }
     }
 ];

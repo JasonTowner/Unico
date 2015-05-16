@@ -1,9 +1,12 @@
 'use strict';
 
+var path = require('path');
+
 var defaultHandler = require('./handlers/default'),
     unicornHandler = require('./handlers/unicorn'),
     mockedHandler = require('./handlers/mocked'),
-    statusCodeHandler = require('./handlers/statusCode');
+    statusCodeHandler = require('./handlers/statusCode'),
+    homePageService = require('./services/homePageService');
 
 var routes = [
     // Root of the api is the documentation
@@ -11,7 +14,12 @@ var routes = [
         method: 'GET',
         path: '/',
         handler: function (req, reply) {
-            reply.redirect('/documentation');
+            homePageService.getHomePage(function(error, result){
+                if(error){
+                   return reply.file(path.resolve('README.md'));
+                }
+                return reply('<!DOCTYPE html><html lang="en"><head><title>Unicorn API</title><link rel="stylesheet" href="/css/github-markdown.css"/></head><body>' + result + '</body></html>');
+            });
         }
     },
 
@@ -45,7 +53,19 @@ var routes = [
     {method: 'POST', path: '/api/{youChoose}', config: defaultHandler.post},
     {method: 'PUT', path: '/api/{youChoose}/{id}', config: defaultHandler.put},
     {method: 'DELETE', path: '/api/{youChoose}/{id}', config: defaultHandler.delete},
-    {method: 'PATCH', path: '/api/{youChoose}/{id}', config: defaultHandler.patch}
+    {method: 'PATCH', path: '/api/{youChoose}/{id}', config: defaultHandler.patch},
+
+    {
+        method: 'GET',
+        path: '/{param*}',
+        config: {
+            handler: {
+                directory: {
+                    path: './public'
+                }
+            }
+        }
+    }
 ];
 
 module.exports = routes;

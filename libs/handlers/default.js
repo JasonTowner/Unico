@@ -5,9 +5,11 @@ var Joi = require('joi'),
 
 var defaultService = require('../services/defaultService');
 
+var apiDataKeyPrefix = 'api-data:';
+
 var getCustomResources = function(req, reply){
     try{
-        return reply(defaultService.getCustomResources(req.params['youChoose']));
+        return reply(defaultService.getCustomResources(apiDataKeyPrefix + req.params['youChoose']));
     } catch(error){
         return reply(Boom.notFound());
     }
@@ -15,7 +17,7 @@ var getCustomResources = function(req, reply){
 
 var getCustomResource = function(req, reply){
     try{
-        return reply(defaultService.getCustomResource(req.params['youChoose'], req.params['id']));
+        return reply(defaultService.getCustomResource(apiDataKeyPrefix + req.params['youChoose'], req.params['id']));
     } catch(error){
         return reply(Boom.notFound());
     }
@@ -23,7 +25,7 @@ var getCustomResource = function(req, reply){
 
 var createCustomResource = function(req, reply){
     try{
-        return reply(defaultService.createCustomResource(req.params['youChoose'], req.payload)).code(201);
+        return reply(defaultService.createCustomResource(apiDataKeyPrefix + req.params['youChoose'], req.payload)).code(201);
     } catch(error){
         return reply(Boom.serverTimeout());
     }
@@ -31,7 +33,7 @@ var createCustomResource = function(req, reply){
 
 var createCustomResourceWithId = function(req, reply){
     try{
-        return reply(defaultService.createCustomResourceWithId(req.params['youChoose'], req.params['id'], req.payload)).code(201);
+        return reply(defaultService.createCustomResourceWithId(apiDataKeyPrefix + req.params['youChoose'], req.params['id'], req.payload)).code(201);
     } catch(error){
         return reply(Boom.serverTimeout());
     }
@@ -39,7 +41,7 @@ var createCustomResourceWithId = function(req, reply){
 
 var deleteCustomResource = function(req, reply){
     try{
-        return reply(defaultService.deleteCustomResource(req.params['youChoose'], req.params['id'])).code(204);
+        return reply(defaultService.deleteCustomResource(apiDataKeyPrefix + req.params['youChoose'], req.params['id'])).code(204);
     } catch(error){
         return reply(Boom.notFound());
     }
@@ -47,7 +49,7 @@ var deleteCustomResource = function(req, reply){
 
 var editCustomResource = function(req, reply){
     try{
-        return reply(defaultService.editCustomResource(req.params['youChoose'], req.params['id'], req.payload)).code(202);
+        return reply(defaultService.editCustomResource(apiDataKeyPrefix + req.params['youChoose'], req.params['id'], req.payload)).code(202);
     } catch(error){
         return reply(Boom.notFound());
     }
