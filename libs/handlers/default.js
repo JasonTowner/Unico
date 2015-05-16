@@ -1,22 +1,11 @@
 'use strict';
 
 var Joi = require('joi'),
-    Boom = require('boom'),
-    cache = require('memory-cache'),
-    _ = require('lodash'),
-    uuid = require('uuid');
+    Boom = require('boom');
 
 var defaultService = require('../services/defaultService');
 
 var getCustomResources = function(req, reply){
-    //var resources = cache.get(req.params['youChoose'])
-    //var resourcesArray = [];
-    //for(var prop in resources){
-    //    resourcesArray.push(resources[prop]);
-    //}
-    //return reply(resourcesArray);
-
-
     try{
         return reply(defaultService.getCustomResources(req.params['youChoose']));
     } catch(error){
@@ -25,8 +14,6 @@ var getCustomResources = function(req, reply){
 };
 
 var getCustomResource = function(req, reply){
-    //return reply((cache.get(req.params['youChoose']) || {})[req.params['id']]);
-
     try{
         return reply(defaultService.getCustomResource(req.params['youChoose'], req.params['id']));
     } catch(error){
@@ -35,11 +22,6 @@ var getCustomResource = function(req, reply){
 };
 
 var createCustomResource = function(req, reply){
-    //req.payload.id = uuid.v4();
-    //var resources = (cache.get(req.params['youChoose']) || {});
-    //resources[req.payload.id] = req.payload;
-    //return reply(cache.put(req.params['youChoose'], resources)).code(201);
-
     try{
         return reply(defaultService.createCustomResource(req.params['youChoose'], req.payload)).code(201);
     } catch(error){
@@ -48,11 +30,6 @@ var createCustomResource = function(req, reply){
 };
 
 var createCustomResourceWithId = function(req, reply){
-    //req.payload.id = req.params['id'];
-    //var resources = (cache.get(req.params['youChoose']) || {});
-    //resources[req.payload.id] = req.payload;
-    //return reply(cache.put(req.params['youChoose'], resources)).code(201);
-
     try{
         return reply(defaultService.createCustomResourceWithId(req.params['youChoose'], req.params['id'], req.payload)).code(201);
     } catch(error){
@@ -61,13 +38,6 @@ var createCustomResourceWithId = function(req, reply){
 };
 
 var deleteCustomResource = function(req, reply){
-    //var resources = cache.get(req.params['youChoose']);
-    //if(!resources){
-    //    return reply(Boom.notFound());
-    //}
-    //delete resources[req.params['id']];
-    //return reply(cache.put(req.params['youChoose'], resources)).code(204);
-
     try{
         return reply(defaultService.deleteCustomResource(req.params['youChoose'], req.params['id'])).code(204);
     } catch(error){
@@ -76,22 +46,6 @@ var deleteCustomResource = function(req, reply){
 };
 
 var editCustomResource = function(req, reply){
-    //var resources = cache.get(req.params['youChoose']);
-    //if(!resources){
-    //    return reply(Boom.notFound());
-    //}
-    //var resource = resources[req.params['id']];
-    //resource = _.merge(resource, req.payload, function (a, b) {
-    //    if (Array.isArray(a)) {
-    //        return b;
-    //    }
-    //});
-    //
-    //resources[resource.id] = resource;
-    //
-    //// Allows changing of id as well - be ye warned!
-    //return reply(cache.put(req.params['youChoose'], resources)).code(202);
-
     try{
         return reply(defaultService.editCustomResource(req.params['youChoose'], req.params['id'], req.payload)).code(202);
     } catch(error){

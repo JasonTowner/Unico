@@ -2,6 +2,9 @@
 
 var Hapi = require('hapi');
 
+// Init stuffs
+require('./init');
+
 var routes = require('./libs/routes');
 
 // Get config values
