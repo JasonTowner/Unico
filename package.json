@@ -26,6 +26,9 @@
     "good-console": "^5.0.0",
     "hapi": "^8.4.0",
     "hapi-swagger": "^0.7.3",
-    "joi": "^6.4.1"
+    "joi": "^6.4.1",
+    "lodash": "^3.8.0",
+    "memory-cache": "^0.1.2",
+    "uuid": "^2.0.1"
   }
 }
