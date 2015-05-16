@@ -13,7 +13,8 @@ var port = process.env.PORT || 1337;
 var server = new Hapi.Server();
 server.connection({
     host: host,
-    port: port
+    port: port,
+    routes: { cors: true }
 });
 
 // Add the routes

@@ -1,12 +1,10 @@
 # Unico API
 SSL: https://unico.herokuapp.com
 
-NON-SSL: http://unico.herokuapp.com
-
 API root: `/api`
 
 ##Documentation
-http://unico.herokuapp.com/documentation
+https://unico.herokuapp.com/documentation
 
 ##Unicorn API - as magical as it sounds!
 Simple custom API tool for users who are prototyping front-ends or anything that wants to hit a real endpoint before a real service exists.
