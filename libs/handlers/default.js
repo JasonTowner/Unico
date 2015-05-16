@@ -9,7 +9,15 @@ var apiDataKeyPrefix = 'api-data:';
 
 var getCustomResources = function(req, reply){
     try{
-        return reply(defaultService.getCustomResources(apiDataKeyPrefix + req.params['custom']));
+        var paths = req.params['custom'].match(/^(.*[/\\])([^/\\]+?)$/) || req.params['custom'];
+        if(Array.isArray(paths)){
+            var key = (paths[1] || '').replace(/\/$/, '');
+            var id = paths[2] || '';
+        } else {
+            var key = paths;
+            var id = '';
+        }
+        return reply(defaultService.getCustomResources(apiDataKeyPrefix + key, id));
     } catch(error){
         return reply(Boom.notFound());
     }
@@ -17,7 +25,10 @@ var getCustomResources = function(req, reply){
 
 var getCustomResource = function(req, reply){
     try{
-        return reply(defaultService.getCustomResource(apiDataKeyPrefix + req.params['custom'], req.params['id']));
+        var paths = req.params['custom'].match(/^(.*[/\\])([^/\\]+?)$/);
+        var key = paths[1].replace(/\/$/, "");
+        var id = paths[2];
+        return reply(defaultService.getCustomResource(apiDataKeyPrefix + key, id));
     } catch(error){
         return reply(Boom.notFound());
     }
@@ -33,7 +44,10 @@ var createCustomResource = function(req, reply){
 
 var createCustomResourceWithId = function(req, reply){
     try{
-        return reply(defaultService.createCustomResourceWithId(apiDataKeyPrefix + req.params['custom'], req.params['id'], req.payload)).code(201);
+        var paths = req.params['custom'].match(/^(.*[/\\])([^/\\]+?)$/);
+        var key = paths[1].replace(/\/$/, "");
+        var id = paths[2];
+        return reply(defaultService.createCustomResourceWithId(apiDataKeyPrefix + key, id, req.payload)).code(201);
     } catch(error){
         return reply(Boom.serverTimeout());
     }
@@ -41,7 +55,10 @@ var createCustomResourceWithId = function(req, reply){
 
 var deleteCustomResource = function(req, reply){
     try{
-        return reply(defaultService.deleteCustomResource(apiDataKeyPrefix + req.params['custom'], req.params['id'])).code(204);
+        var paths = req.params['custom'].match(/^(.*[/\\])([^/\\]+?)$/);
+        var key = paths[1].replace(/\/$/, "");
+        var id = paths[2];
+        return reply(defaultService.deleteCustomResource(apiDataKeyPrefix + key, id)).code(204);
     } catch(error){
         return reply(Boom.notFound());
     }
@@ -49,7 +66,10 @@ var deleteCustomResource = function(req, reply){
 
 var editCustomResource = function(req, reply){
     try{
-        return reply(defaultService.editCustomResource(apiDataKeyPrefix + req.params['custom'], req.params['id'], req.payload)).code(202);
+        var paths = req.params['custom'].match(/^(.*[/\\])([^/\\]+?)$/);
+        var key = paths[1].replace(/\/$/, "");
+        var id = paths[2];
+        return reply(defaultService.editCustomResource(apiDataKeyPrefix + key, id, req.payload)).code(202);
     } catch(error){
         return reply(Boom.notFound());
     }
@@ -76,9 +96,7 @@ module.exports = {
         validate: {
             params: {
                 custom: Joi.required()
-                    .description('Your desired resource path'),
-                id: Joi.required()
-                    .description('The identifier for the unicorn')
+                    .description('Your desired resource path. The last path with be used as the id of the resource to retrieve.')
             }
         }
     },
@@ -104,9 +122,7 @@ module.exports = {
         validate: {
             params: {
                 custom: Joi.required()
-                    .description('Your desired resource path'),
-                id: Joi.required()
-                    .description('The identifier for the new unicorn')
+                    .description('Your desired resource path. The last path will be uses as the resource\'s id.')
             },
             payload: Joi.object().unknown(true)
                     .description('Whatever you want to store')
@@ -120,9 +136,7 @@ module.exports = {
         validate: {
             params: {
                 custom: Joi.required()
-                    .description('Your desired resource path'),
-                id: Joi.required()
-                    .description('The identifier for the unicorn')
+                    .description('Your desired resource path. The last path will be used as the id to delete the resource.')
             }
         }
     },
@@ -134,9 +148,7 @@ module.exports = {
         validate: {
             params: {
                 custom: Joi.required()
-                    .description('Your desired resource path'),
-                id: Joi.required()
-                    .description('The identifier for the unicorn')
+                    .description('Your desired resource path. The last path will be used as the id to update the resource.')
             },
             payload: Joi.object().unknown(true)
                     .description('Whatever you want to store')

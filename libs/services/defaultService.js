@@ -4,8 +4,12 @@ var cache = require('memory-cache'),
     _ = require('lodash'),
     uuid = require('uuid');
 
-var getCustomResources = function (key) {
-    var resources = cache.get(key)
+var getCustomResources = function (key, id) {
+    var resource = getCustomResource(key, id);
+    if(resource){
+        return resource;
+    }
+    var resources = cache.get(id.length > 0 ? key + '/' + id : key);
     var resourcesArray = [];
     for (var prop in resources) {
         resourcesArray.push(resources[prop]);
@@ -21,7 +25,8 @@ var createCustomResource = function (key, customResource) {
     customResource.id = uuid.v4();
     var resources = (cache.get(key) || {});
     resources[customResource.id] = customResource;
-    return cache.put(key, resources);
+    cache.put(key, resources);
+    return customResource.id;
 };
 
 var createCustomResourceWithId = function (key, id, customResource) {

@@ -1,6 +1,7 @@
 'use strict';
 
-var path = require('path');
+var path = require('path'),
+    cache = require('memory-cache');
 
 var defaultHandler = require('./handlers/default'),
     unicornHandler = require('./handlers/unicorn'),
@@ -36,6 +37,8 @@ var routes = [
         }
     },
 
+    {method: 'GET',     path: '/api',                               handler: function(req, reply){return reply(cache.keys().map(function(key){return key.replace('api-data:', '');}));}},
+
     // Unicorns
     {method: 'GET',     path: '/api/unicorns',                      config: unicornHandler.get},
     {method: 'GET',     path: '/api/unicorns/{id}',                 config: unicornHandler.getOne},
@@ -61,12 +64,12 @@ var routes = [
     {method: 'PATCH',   path: '/api/status-code/{statusCode}',      config: statusCodeHandler.patch},
 
     // Wildcarded
-    {method: 'GET',     path: '/api/{custom}',                   config: defaultHandler.get},
-    {method: 'GET',     path: '/api/{custom}/{id}',              config: defaultHandler.getOne},
-    {method: 'POST',    path: '/api/{custom}',                   config: defaultHandler.post},
-    {method: 'PUT',     path: '/api/{custom}/{id}',              config: defaultHandler.put},
-    {method: 'DELETE',  path: '/api/{custom}/{id}',              config: defaultHandler.delete},
-    {method: 'PATCH',   path: '/api/{custom}/{id}',              config: defaultHandler.patch},
+    {method: 'GET',     path: '/api/{custom*}',                     config: defaultHandler.get},
+    //{method: 'GET',     path: '/api/{custom*}/{id}',              config: defaultHandler.getOne},
+    {method: 'POST',    path: '/api/{custom*}',                     config: defaultHandler.post},
+    {method: 'PUT',     path: '/api/{custom*}',                     config: defaultHandler.put},
+    {method: 'DELETE',  path: '/api/{custom*}',                     config: defaultHandler.delete},
+    {method: 'PATCH',   path: '/api/{custom*}',                     config: defaultHandler.patch},
 
     {
         method: 'GET',
