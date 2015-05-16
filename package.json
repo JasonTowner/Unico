@@ -1,6 +1,6 @@
 {
   "name": "unico",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Unicorn API - No matter what you send or request, you get back unicorns",
   "main": "server.js",
   "scripts": {
