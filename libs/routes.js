@@ -24,6 +24,7 @@ var routes = [
                     '<html lang="en">' +
                         '<head>' +
                             '<title>Unicorn API</title>' +
+                            '<meta environment="' + process.env.NODE_ENV + '"/>' +
                             '<link rel="stylesheet" href="/css/github-markdown.css"/>' +
                         '</head>' +
                         '<body>' +
