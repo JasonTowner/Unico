@@ -21,7 +21,8 @@ module.exports.getHomePage = function(callback){
             'Content-Type': 'text/x-markdown',
             'User-Agent': 'JasonTowner'
         },
-        body: readme
+        body: readme,
+        timeout: 3000
     }, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             cache.put(homePageKey, body);

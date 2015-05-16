@@ -7,7 +7,7 @@ var defaultHandler = require('./default');
 module.exports = {
     get: {
         handler: function (req, reply) {
-            req.params['youChoose'] = 'unicorns';
+            req.params['custom'] = 'unicorns';
             return defaultHandler.get.handler(req, reply);
         },
         description: 'Get unicorns',
@@ -16,7 +16,7 @@ module.exports = {
     },
     getOne: {
         handler: function (req, reply) {
-            req.params['youChoose'] = 'unicorns';
+            req.params['custom'] = 'unicorns';
             return defaultHandler.getOne.handler(req, reply);
         },
         description: 'Get unicorn',
@@ -31,7 +31,7 @@ module.exports = {
     },
     post: {
         handler: function (req, reply) {
-            req.params['youChoose'] = 'unicorns';
+            req.params['custom'] = 'unicorns';
             return defaultHandler.post.handler(req, reply);
         },
         description: 'Create unicorns',
@@ -43,7 +43,7 @@ module.exports = {
     },
     put: {
         handler: function (req, reply) {
-            req.params['youChoose'] = 'unicorns';
+            req.params['custom'] = 'unicorns';
             return defaultHandler.put.handler(req, reply);
         },
         description: 'Put unicorns',
@@ -59,7 +59,7 @@ module.exports = {
     },
     delete: {
         handler: function (req, reply) {
-            req.params['youChoose'] = 'unicorns';
+            req.params['custom'] = 'unicorns';
             return defaultHandler.delete.handler(req, reply);
         },
         description: 'Delete unicorns',
@@ -74,7 +74,7 @@ module.exports = {
     },
     patch: {
         handler: function (req, reply) {
-            req.params['youChoose'] = 'unicorns';
+            req.params['custom'] = 'unicorns';
             return defaultHandler.patch.handler(req, reply);
         },
         description: 'Patch unicorns',

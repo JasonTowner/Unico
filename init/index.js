@@ -2,7 +2,7 @@
 
 var cache = require('memory-cache');
 
-cache.put('unicorns', {
+cache.put('api-data:unicorns', {
     unico: {
         id: 'unico',
         name: 'Unico',

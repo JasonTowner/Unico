@@ -9,7 +9,7 @@ var apiDataKeyPrefix = 'api-data:';
 
 var getCustomResources = function(req, reply){
     try{
-        return reply(defaultService.getCustomResources(apiDataKeyPrefix + req.params['youChoose']));
+        return reply(defaultService.getCustomResources(apiDataKeyPrefix + req.params['custom']));
     } catch(error){
         return reply(Boom.notFound());
     }
@@ -17,7 +17,7 @@ var getCustomResources = function(req, reply){
 
 var getCustomResource = function(req, reply){
     try{
-        return reply(defaultService.getCustomResource(apiDataKeyPrefix + req.params['youChoose'], req.params['id']));
+        return reply(defaultService.getCustomResource(apiDataKeyPrefix + req.params['custom'], req.params['id']));
     } catch(error){
         return reply(Boom.notFound());
     }
@@ -25,7 +25,7 @@ var getCustomResource = function(req, reply){
 
 var createCustomResource = function(req, reply){
     try{
-        return reply(defaultService.createCustomResource(apiDataKeyPrefix + req.params['youChoose'], req.payload)).code(201);
+        return reply(defaultService.createCustomResource(apiDataKeyPrefix + req.params['custom'], req.payload)).code(201);
     } catch(error){
         return reply(Boom.serverTimeout());
     }
@@ -33,7 +33,7 @@ var createCustomResource = function(req, reply){
 
 var createCustomResourceWithId = function(req, reply){
     try{
-        return reply(defaultService.createCustomResourceWithId(apiDataKeyPrefix + req.params['youChoose'], req.params['id'], req.payload)).code(201);
+        return reply(defaultService.createCustomResourceWithId(apiDataKeyPrefix + req.params['custom'], req.params['id'], req.payload)).code(201);
     } catch(error){
         return reply(Boom.serverTimeout());
     }
@@ -41,7 +41,7 @@ var createCustomResourceWithId = function(req, reply){
 
 var deleteCustomResource = function(req, reply){
     try{
-        return reply(defaultService.deleteCustomResource(apiDataKeyPrefix + req.params['youChoose'], req.params['id'])).code(204);
+        return reply(defaultService.deleteCustomResource(apiDataKeyPrefix + req.params['custom'], req.params['id'])).code(204);
     } catch(error){
         return reply(Boom.notFound());
     }
@@ -49,7 +49,7 @@ var deleteCustomResource = function(req, reply){
 
 var editCustomResource = function(req, reply){
     try{
-        return reply(defaultService.editCustomResource(apiDataKeyPrefix + req.params['youChoose'], req.params['id'], req.payload)).code(202);
+        return reply(defaultService.editCustomResource(apiDataKeyPrefix + req.params['custom'], req.params['id'], req.payload)).code(202);
     } catch(error){
         return reply(Boom.notFound());
     }
@@ -63,20 +63,20 @@ module.exports = {
         tags: ['api', 'custom'],
         validate: {
             params: {
-                youChoose: Joi.required()
-                    .description('Your desired resource')
+                custom: Joi.required()
+                    .description('Your desired resource path')
             }
         }
     },
     getOne: {
         handler: getCustomResource,
-        description: 'Get custom resource',
+        description: 'Get a custom resource',
         notes: 'Returns the specified resource',
         tags: ['api', 'custom'],
         validate: {
             params: {
-                youChoose: Joi.required()
-                    .description('Your desired resource'),
+                custom: Joi.required()
+                    .description('Your desired resource path'),
                 id: Joi.required()
                     .description('The identifier for the unicorn')
             }
@@ -84,41 +84,43 @@ module.exports = {
     },
     post: {
         handler: createCustomResource,
-        description: 'Create custom resource',
+        description: 'Create a custom resource',
         notes: 'Creates a new custom resource in the resource path provided',
         tags: ['api', 'custom'],
         validate: {
             params: {
-                youChoose: Joi.required()
-                    .description('Your desired resource')
+                custom: Joi.required()
+                    .description('Your desired resource path')
             },
             payload: Joi.object().unknown(true)
+                    .description('Whatever you want to store')
         }
     },
     put: {
         handler: createCustomResourceWithId,
-        description: 'Put custom resource',
+        description: 'Put a custom resource with the specified id',
         notes: 'Creates a new custom resource and assigns it the id specified in the url',
         tags: ['api', 'custom'],
         validate: {
             params: {
-                youChoose: Joi.required()
-                    .description('Your desired resource'),
+                custom: Joi.required()
+                    .description('Your desired resource path'),
                 id: Joi.required()
                     .description('The identifier for the new unicorn')
             },
             payload: Joi.object().unknown(true)
+                    .description('Whatever you want to store')
         }
     },
     delete: {
         handler: deleteCustomResource,
-        description: 'Delete custom resource',
+        description: 'Delete a custom resource',
         notes: 'Removes a specific custom resource',
         tags: ['api', 'custom'],
         validate: {
             params: {
-                youChoose: Joi.required()
-                    .description('Your desired resource'),
+                custom: Joi.required()
+                    .description('Your desired resource path'),
                 id: Joi.required()
                     .description('The identifier for the unicorn')
             }
@@ -126,17 +128,18 @@ module.exports = {
     },
     patch: {
         handler: editCustomResource,
-        description: 'Patch custom resource',
+        description: 'Patch a custom resource',
         notes: 'Apply modifications to a resource. this can also change the id, so be ye warned!',
         tags: ['api', 'custom'],
         validate: {
             params: {
-                youChoose: Joi.required()
-                    .description('Your desired resource'),
+                custom: Joi.required()
+                    .description('Your desired resource path'),
                 id: Joi.required()
                     .description('The identifier for the unicorn')
             },
             payload: Joi.object().unknown(true)
+                    .description('Whatever you want to store')
         }
     }
 };

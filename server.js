@@ -41,7 +41,7 @@ var plugins = [
         register: require('hapi-swagger'),
         options: {
             apiVersion: '1.0.0',
-            protocol: 'https'
+            protocol: process.env.NODE_ENV === 'production' ? 'https' : 'http'
         }
     }
 ];

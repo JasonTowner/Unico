@@ -1,5 +1,5 @@
 # Unico API
-SSL: https://unico.herokuapp.com
+https://unico.herokuapp.com
 
 API root: `/api`
 
