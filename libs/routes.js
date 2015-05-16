@@ -6,6 +6,15 @@ var defaultHandler = require('./handlers/default'),
     statusCodeHandler = require('./handlers/statusCode');
 
 var routes = [
+    // Root of the api is the documentation
+    {
+        method: 'GET',
+        path: '/',
+        handler: function (req, reply) {
+            reply.redirect('/documentation');
+        }
+    },
+
     // Unicorns
     {method: 'GET', path: '/api/unicorns', config: unicornHandler.get},
     {method: 'GET', path: '/api/unicorns/{id}', config: unicornHandler.getOne},

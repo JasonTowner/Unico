@@ -39,7 +39,10 @@ var plugins = [
         options: goodOptions
     },
     {
-        register: require('hapi-swagger')
+        register: require('hapi-swagger'),
+        options: {
+            apiVersion: '1.0.0'
+        }
     }
 ];
 
