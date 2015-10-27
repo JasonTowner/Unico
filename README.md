@@ -50,7 +50,7 @@ Root: `/api/mocked`
 Response:  
 `Status Code: 404`
 
-`POST ?code={"mocked":"data","other":"properties"}&}statusCode=202`  
+`POST ?data={"mocked":"data","other":"properties"}&}statusCode=202`  
 Response:  
 `Status Code: 202`
 ```json
@@ -75,7 +75,7 @@ Response:
 
 Sometimes when you're testing your implementation of an API, you need on-the-fly data being returned from the server. Receive helpful responses and status codes.
 Just send your desired response data as JSON in the query string param `data` and optionally set the response status code using the `statusCode` query string
-param. So a `GET` to `/api/mocked?code={"test":"data"}&statusCode=200` will return:
+param. So a `GET` to `/api/mocked?data={"test":"data"}&statusCode=200` will return:
 ```json
 {
     "test": "data"
